@@ -1,7 +1,0 @@
-parameters:
-    level: 8
-    paths:
-        - src
-    parallel:
-        jobSize: 50
-        maximumNumberOfProcesses: 4

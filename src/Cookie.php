@@ -1,55 +1,21 @@
 <?php
 
 /**
- * Platine Cookie
- *
- * Platine Cookie is the cookie management in accordance with the RFC 6265 specification
- *
- * This content is released under the MIT License (MIT)
- *
- * Copyright (c) 2020 Platine Cookie
- * Copyright (c) 2020 Evgeniy Zyubin
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-
-/**
  *  @file Cookie.php
  *
  *  The Cookie class
+ *  Forked from Platine\Cookie\CookieInterface
  *
- *  @package    Platine\Cookie
- *  @author Platine Developers Team
- *  @copyright  Copyright (c) 2020
- *  @license    http://opensource.org/licenses/MIT  MIT License
- *  @link   http://www.iacademy.cf
+ *  @package    Balpom\Cookie
  *  @version 1.0.0
  *  @filesource
  */
-
 declare(strict_types=1);
 
-namespace Platine\Cookie;
+namespace Balpom\Cookie;
 
 class Cookie implements CookieInterface
 {
-
     /**
      * The name of the cookie
      *
@@ -121,15 +87,16 @@ class Cookie implements CookieInterface
      * @param string|null $sameSite
      */
     public function __construct(
-        string $name,
-        string $value = '',
-        $expire = null,
-        ?string $domain = null,
-        ?string $path = '/',
-        ?bool $secure = true,
-        ?bool $httpOnly = true,
-        ?string $sameSite = self::SAME_SITE_LAX
-    ) {
+            string $name,
+            string $value = '',
+            $expire = null,
+            ?string $domain = null,
+            ?string $path = '/',
+            ?bool $secure = true,
+            ?bool $httpOnly = true,
+            ?string $sameSite = self::SAME_SITE_LAX
+    )
+    {
         $this->setName($name);
         $this->setValue($value);
         $this->setExpires($expire);
@@ -401,16 +368,16 @@ class Cookie implements CookieInterface
     {
         if (empty($name)) {
             throw new \InvalidArgumentException(sprintf(
-                'The cookie name [%s] could not be empty',
-                $name
+                                    'The cookie name [%s] could not be empty',
+                                    $name
             ));
         }
 
         if (!preg_match('/^[a-zA-Z0-9!#$%&\' *+\-.^_`|~]+$/', $name)) {
             throw new \InvalidArgumentException(sprintf(
-                'The cookie name [%s] contains invalid characters; must contain any US-ASCII'
-                . ' characters, except control and separator characters, spaces, or tabs.',
-                $name
+                                    'The cookie name [%s] contains invalid characters; must contain any US-ASCII'
+                                    . ' characters, except control and separator characters, spaces, or tabs.',
+                                    $name
             ));
         }
 
@@ -437,15 +404,12 @@ class Cookie implements CookieInterface
     private function setExpires($expire): self
     {
         if (
-            $expire !== null
-            && !is_int($expire)
-            && !is_string($expire)
-            && !$expire instanceof \DateTimeInterface
+                $expire !== null && !is_int($expire) && !is_string($expire) && !$expire instanceof \DateTimeInterface
         ) {
             throw new \InvalidArgumentException(sprintf(
-                'The cookie expire time is not valid; must be null, or string,'
-                . ' or integer, or DateTimeInterface instance; received [%s]',
-                is_object($expire) ? get_class($expire) : gettype($expire)
+                                    'The cookie expire time is not valid; must be null, or string,'
+                                    . ' or integer, or DateTimeInterface instance; received [%s]',
+                                    is_object($expire) ? get_class($expire) : gettype($expire)
             ));
         }
 
@@ -461,8 +425,8 @@ class Cookie implements CookieInterface
 
             if ($expire === false) {
                 throw new \InvalidArgumentException(sprintf(
-                    'The string representation of the cookie expire time [%s] is not valid',
-                    $strExpire
+                                        'The string representation of the cookie expire time [%s] is not valid',
+                                        $strExpire
                 ));
             }
         }
@@ -528,9 +492,9 @@ class Cookie implements CookieInterface
 
         if ($sameSite !== null && !in_array($sameSite, $sameSiteList, true)) {
             throw new \InvalidArgumentException(sprintf(
-                'The same site attribute `%s` is not valid; must be one of (%s).',
-                $sameSite,
-                implode(', ', $sameSiteList)
+                                    'The same site attribute `%s` is not valid; must be one of (%s).',
+                                    $sameSite,
+                                    implode(', ', $sameSiteList)
             ));
         }
 
@@ -538,4 +502,5 @@ class Cookie implements CookieInterface
 
         return $this;
     }
+
 }

@@ -3,7 +3,7 @@
     "description": "Based on Platine Cookie library (cookie management in accordance with the RFC 6265 specification).",
     "type": "library",
     "license": "MIT",
-    "keywords": ["php", "http", "platine", "cookie", "cookiejar", "RFC 6265", "RFC6265"],
+    "keywords": ["php", "http", "platine", "cookie", "RFC 6265", "RFC6265"],
     "authors": [
         {
             "name": "NGUEREZA Tony",
